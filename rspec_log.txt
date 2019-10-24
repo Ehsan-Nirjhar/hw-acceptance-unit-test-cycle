@@ -1,0 +1,6 @@
+....
+
+Finished in 0.0328 seconds (files took 1.58 seconds to load)
+4 examples, 0 failures
+
+Coverage report generated for Cucumber Features, RSpec to /home/ec2-user/environment/hw-acceptance-unit-test-cycle/coverage. 53 / 60 LOC (88.33%) covered.
