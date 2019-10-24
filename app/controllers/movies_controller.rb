@@ -1,5 +1,6 @@
 class MoviesController < ApplicationController
-  
+  ### flag to determine whether to flash notice or not. If 0, don't flash notice.
+  @@flag = 1   
   def movie_params
     params.require(:movie).permit(:title, :rating, :description, :release_date, :director)
   end
@@ -7,6 +8,7 @@ class MoviesController < ApplicationController
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
+    # flash[:notice] = nil
     # will render app/views/movies/show.<extension> by default
   end
 
@@ -31,6 +33,10 @@ class MoviesController < ApplicationController
       redirect_to :sort => sort, :ratings => @selected_ratings and return
     end
     @movies = Movie.where(rating: @selected_ratings.keys).order(ordering)
+    if @@flag == 0
+      @@flag = 1
+      flash[:notice] = nil
+    end
   end
 
   def new
@@ -71,6 +77,7 @@ class MoviesController < ApplicationController
       redirect_to movies_path
     else
       @movies = Movie.where(director:director_name)
+      @@flag = 0   ### Making flag 0, so that it doesn't show the notice, when back to home page.
       flash[:notice] = %Q{There are #{@movies.size} movie(s) with "#{director_name}" as director}
     end
   end
