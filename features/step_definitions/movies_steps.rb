@@ -23,3 +23,13 @@ Then /I should see all the movies/ do
     step %{I should see "#{movie.title}"}
   end
 end
+
+Then /I should see "(.*)" has no director info/ do |title|
+  expect(movie.director == empty)
+end
+
+Then(/^the director of "([^"]*)" should be "([^"]*)"$/) do |title, director|
+    movie = Movie.find_by_title(title)
+    movie.director.should == director
+end
+
