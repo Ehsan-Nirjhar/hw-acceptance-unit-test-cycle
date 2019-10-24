@@ -25,6 +25,7 @@ Then /I should see all the movies/ do
 end
 
 Then /I should see "(.*)" has no director info/ do |title|
+  movie = Movie.find_by_title(title)
   expect(movie.director == empty)
 end
 
